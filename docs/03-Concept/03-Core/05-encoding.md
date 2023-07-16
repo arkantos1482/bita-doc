@@ -12,7 +12,7 @@ While encoding in the Cosmos SDK used to be mainly handled by `go-amino` codec, 
 
 ### Pre-requisite Readings
 
-* [AnBITAy of a Cosmos SDK application](../basics/00-app-anBITAy.md)
+* [anatomy of a Cosmos SDK application](../basics/00-app-anatomy.md)
 
 :::
 

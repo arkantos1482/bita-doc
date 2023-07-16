@@ -11,7 +11,7 @@ sidebar_position: 1
 
 ### Pre-requisite Readings
 
-* [AnBITAy of a Cosmos SDK application](../basics/00-app-anBITAy.md)
+* [anatomy of a Cosmos SDK application](../basics/00-app-anatomy.md)
 * [CometBFT Documentation on Events](https://docs.cometbft.com/v0.37/spec/abci/abci++_basic_concepts#events)
 
 :::

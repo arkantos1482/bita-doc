@@ -12,7 +12,7 @@ This document describes the in-built account and public key system of the Cosmos
 
 ### Pre-requisite Readings
 
-* [AnBITAy of a Cosmos SDK Application](./00-app-anBITAy.md)
+* [anatomy of a Cosmos SDK Application](./00-app-anatomy.md)
 
 :::
 

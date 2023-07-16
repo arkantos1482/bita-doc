@@ -12,7 +12,7 @@ This document describes `BaseApp`, the abstraction that implements the core func
 
 ### Pre-requisite Readings
 
-* [AnBITAy of a Cosmos SDK application](../basics/00-app-anBITAy.md)
+* [anatomy of a Cosmos SDK application](../basics/00-app-anatomy.md)
 * [Lifecycle of a Cosmos SDK transaction](../basics/01-tx-lifecycle.md)
 
 :::
@@ -80,8 +80,8 @@ First, the important parameters that are initialized during the bootstrapping of
 * [`AnteHandler`](#antehandler): This handler is used to handle signature verification, fee payment,
   and other pre-message execution checks when a transaction is received. It's executed during
   [`CheckTx/RecheckTx`](#checktx) and [`FinalizeBlock`](#finalizeblock).
-* [`InitChainer`](../basics/00-app-anBITAy.md#initchainer),
-  [`BeginBlocker` and `EndBlocker`](../basics/00-app-anBITAy.md#beginblocker-and-endblocker): These are
+* [`InitChainer`](../basics/00-app-anatomy.md#initchainer),
+  [`BeginBlocker` and `EndBlocker`](../basics/00-app-anatomy.md#beginblocker-and-endblocker): These are
   the functions executed when the application receives the `InitChain` and `FinalizeBlock`
   ABCI messages from the underlying CometBFT engine.
 
@@ -108,7 +108,7 @@ Finally, a few more important parameters:
   `minGasPrices` (e.g. if `minGasPrices == 1uBITA,1photon`, the `gas-price` of the transaction must be
   greater than `1uBITA` OR `1photon`).
 * `appVersion`: Version of the application. It is set in the
-  [application's constructor function](../basics/00-app-anBITAy.md#constructor-function).
+  [application's constructor function](../basics/00-app-anatomy.md#constructor-function).
 
 ## Constructor
 
@@ -224,13 +224,13 @@ When messages and queries are received by the application, they must be routed t
 
 The [default `msgServiceRouter` included in `BaseApp`](https://github.com/cosmos/cosmos-sdk/blob/v0.50.0-alpha.0/baseapp/msg_service_router.go) is stateless. However, some applications may want to make use of more stateful routing mechanisms such as allowing governance to disable certain routes or point them to new modules for upgrade purposes. For this reason, the `sdk.Context` is also passed into each [route handler inside `msgServiceRouter`](https://github.com/cosmos/cosmos-sdk/blob/v0.50.0-alpha.0/baseapp/msg_service_router.go#L31-L32). For a stateless router that doesn't want to make use of this, you can just ignore the `ctx`.
 
-The application's `msgServiceRouter` is initialized with all the routes using the application's [module manager](../building-modules/01-module-manager.md#manager) (via the `RegisterServices` method), which itself is initialized with all the application's modules in the application's [constructor](../basics/00-app-anBITAy.md#constructor-function).
+The application's `msgServiceRouter` is initialized with all the routes using the application's [module manager](../building-modules/01-module-manager.md#manager) (via the `RegisterServices` method), which itself is initialized with all the application's modules in the application's [constructor](../basics/00-app-anatomy.md#constructor-function).
 
 ### gRPC Query Router
 
 Similar to `sdk.Msg`s, [`queries`](../building-modules/02-messages-and-queries.md#queries) need to be routed to the appropriate module's [`Query` service](../building-modules/04-query-services.md). To do so, `BaseApp` holds a `grpcQueryRouter`, which maps modules' fully-qualified service methods (`string`, defined in their Protobuf `Query` gRPC) to their `QueryServer` implementation. The `grpcQueryRouter` is called during the initial stages of query processing, which can be either by directly sending a gRPC query to the gRPC endpoint, or via the [`Query` ABCI message](#query) on the CometBFT RPC endpoint.
 
-Just like the `msgServiceRouter`, the `grpcQueryRouter` is initialized with all the query routes using the application's [module manager](../building-modules/01-module-manager.md) (via the `RegisterServices` method), which itself is initialized with all the application's modules in the application's [constructor](../basics/00-app-anBITAy.md#app-constructor).
+Just like the `msgServiceRouter`, the `grpcQueryRouter` is initialized with all the query routes using the application's [module manager](../building-modules/01-module-manager.md) (via the `RegisterServices` method), which itself is initialized with all the application's modules in the application's [constructor](../basics/00-app-anatomy.md#app-constructor).
 
 ## Main ABCI 2.0 Messages
 
@@ -402,7 +402,7 @@ The `AnteHandler` is theoretically optional, but still a very important componen
 * Perform preliminary _stateful_ validity checks like ensuring signatures are valid or that the sender has enough funds to pay for fees.
 * Play a role in the incentivisation of stakeholders via the collection of transaction fees.
 
-`BaseApp` holds an `anteHandler` as parameter that is initialized in the [application's constructor](../basics/00-app-anBITAy.md#application-constructor). The most widely used `anteHandler` is the [`auth` module](https://github.com/cosmos/cosmos-sdk/blob/v0.50.0-alpha.0/x/auth/ante/ante.go).
+`BaseApp` holds an `anteHandler` as parameter that is initialized in the [application's constructor](../basics/00-app-anatomy.md#application-constructor). The most widely used `anteHandler` is the [`auth` module](https://github.com/cosmos/cosmos-sdk/blob/v0.50.0-alpha.0/x/auth/ante/ante.go).
 
 Click [here](../basics/04-gas-fees.md#antehandler) for more on the `anteHandler`.
 
@@ -435,7 +435,7 @@ The [`InitChain` ABCI message](https://github.com/cometbft/cometbft/blob/v0.37.x
 * [`checkState` and `finalizeBlockState`](#state-updates) via `setState`.
 * The [block gas meter](../basics/04-gas-fees.md#block-gas-meter), with infinite gas to process genesis transactions.
 
-Finally, the `InitChain(req abci.RequestInitChain)` method of `BaseApp` calls the [`initChainer()`](../basics/00-app-anBITAy.md#initchainer) of the application in order to initialize the main state of the application from the `genesis file` and, if defined, call the [`InitGenesis`](../building-modules/08-genesis.md#initgenesis) function of each of the application's modules.
+Finally, the `InitChain(req abci.RequestInitChain)` method of `BaseApp` calls the [`initChainer()`](../basics/00-app-anatomy.md#initchainer) of the application in order to initialize the main state of the application from the `genesis file` and, if defined, call the [`InitGenesis`](../building-modules/08-genesis.md#initgenesis) function of each of the application's modules.
 
 
 ### FinalizeBlock
@@ -458,7 +458,7 @@ https://github.com/cosmos/cosmos-sdk/blob/v0.50.0-alpha.0/baseapp/abci.go#L623
   This function also resets the [main gas meter](../basics/04-gas-fees.md#main-gas-meter).
 
 * Initialize the [block gas meter](../basics/04-gas-fees.md#block-gas-meter) with the `maxGas` limit. The `gas` consumed within the block cannot go above `maxGas`. This parameter is defined in the application's consensus parameters.
-* Run the application's [`beginBlocker()`](../basics/00-app-anBITAy.md#beginblocker-and-endblock), which mainly runs the [`BeginBlocker()`](../building-modules/05-beginblock-endblock.md#beginblock) method of each of the application's modules.
+* Run the application's [`beginBlocker()`](../basics/00-app-anatomy.md#beginblocker-and-endblock), which mainly runs the [`BeginBlocker()`](../building-modules/05-beginblock-endblock.md#beginblock) method of each of the application's modules.
 * Set the [`VoteInfos`](https://github.com/cometbft/cometbft/blob/v0.37.x/spec/abci/abci++_methods.md#voteinfo) of the application, i.e. the list of validators whose _precommit_ for the previous block was included by the proposer of the current block. This information is carried into the [`Context`](./02-context.md) so that it can be used during transaction execution and EndBlock.
 
 #### Transaction Execution

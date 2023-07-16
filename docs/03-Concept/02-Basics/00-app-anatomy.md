@@ -2,7 +2,7 @@
 sidebar_position: 1
 ---
 
-# AnBITAy of a Cosmos SDK Application
+# anatomy of a Cosmos SDK Application
 
 :::note Synopsis
 This document describes the core parts of a Cosmos SDK application, represented throughout the document as a placeholder application named `app`.

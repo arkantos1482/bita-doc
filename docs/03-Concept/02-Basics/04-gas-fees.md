@@ -12,7 +12,7 @@ This document describes the default strategies to handle gas and fees within a C
 
 ### Pre-requisite Readings
 
-* [AnBITAy of a Cosmos SDK Application](./00-app-anBITAy.md)
+* [anatomy of a Cosmos SDK Application](./00-app-anatomy.md)
 
 :::
 

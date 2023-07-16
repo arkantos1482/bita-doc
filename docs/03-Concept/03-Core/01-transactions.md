@@ -12,7 +12,7 @@ sidebar_position: 1
 
 ### Pre-requisite Readings
 
-* [AnBITAy of a Cosmos SDK Application](../basics/00-app-anBITAy.md)
+* [anatomy of a Cosmos SDK Application](../basics/00-app-anatomy.md)
 
 :::
 
