@@ -129,7 +129,7 @@ Your validator is active if the following command returns anything:
 bitad query tendermint-validator-set | grep "$(bitad tendermint show-address)"
 ```
 
-You should now see your validator in one of the Cosmos Hub explorers. You are looking for the `bech32` encoded `address` in the `~/.gaia/config/priv_validator.json` file.
+You should now see your validator in one of the Cosmos Hub explorers. You are looking for the `bech32` encoded `address` in the `~/.bita/config/priv_validator.json` file.
 
 ## Halting Your Validator
 

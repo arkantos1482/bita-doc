@@ -32,16 +32,16 @@ You can find other configuration examples [here](https://github.com/iqlusioninc/
 # Example KMS configuration file
 [[validator]]
 addr = "tcp://localhost:26658"    # or "unix:///path/to/socket"
-chain_id = "gaia-11001"
+chain_id = "bita-11001"
 reconnect = true # true is the default
 secret_key = "~/.tmkms/secret_connection.key"
 
 [[providers.ledgertm]]
-chain_ids = ["gaia-11001"]
+chain_ids = ["bita-11001"]
 ```
 
 - Edit `addr` to point to your `bitad` instance.
-- Adjust `chain-id` to match your `.gaia/config/config.toml` settings.
+- Adjust `chain-id` to match your `.bita/config/config.toml` settings.
 - `provider.ledgertm` has not additional parameters at the moment, however, it is important that you keep that header to enable the feature.
 
 *Plug your Ledger device and open the Tendermint validator app.*
@@ -80,7 +80,7 @@ Take note of the validator pubkey that appears in your screen. *We will use it i
 
 ## Gaia configuration
 
-You need to enable KMS access by editing `.gaia/config/config.toml`. In this file, modify `priv_validator_laddr` to create a listening address/port or a unix socket in `bitad`.
+You need to enable KMS access by editing `.bita/config/config.toml`. In this file, modify `priv_validator_laddr` to create a listening address/port or a unix socket in `bitad`.
 
 For example:
 

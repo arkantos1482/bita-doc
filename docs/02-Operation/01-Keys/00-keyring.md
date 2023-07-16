@@ -53,9 +53,9 @@ for multiple prompts:
 
 ```shell
 # assuming that KEYPASSWD is set in the environment
-$ gaiacli config keyring-backend file                             # use file backend
-$ (echo $KEYPASSWD; echo $KEYPASSWD) | gaiacli keys add me        # multiple prompts
-$ echo $KEYPASSWD | gaiacli keys show me                          # single prompt
+$ bitacli config keyring-backend file                             # use file backend
+$ (echo $KEYPASSWD; echo $KEYPASSWD) | bitacli keys add me        # multiple prompts
+$ echo $KEYPASSWD | bitacli keys show me                          # single prompt
 ```
 
 :::tip
@@ -108,7 +108,7 @@ The `memory` backend stores keys in memory. The keys are immediately deleted aft
 
 ### Setting backend using the env variable 
 
-You can set the keyring-backend using env variable: `BINNAME_KEYRING_BACKEND`. For example, if you binary name is `gaia-v5` then set: `export GAIA_V5_KEYRING_BACKEND=pass`
+You can set the keyring-backend using env variable: `BINNAME_KEYRING_BACKEND`. For example, if you binary name is `bita-v5` then set: `export BITA_V5_KEYRING_BACKEND=pass`
 
 ## Adding keys to the keyring
 

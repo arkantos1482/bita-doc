@@ -153,23 +153,23 @@ Flags are added to commands directly (generally in the [module's CLI file](../bu
 
 ## Environment variables
 
-Each flag is bound to it's respecteve named environment variable. Then name of the environment variable consist of two parts - capital case `basename` followed by flag name of the flag. `-` must be substituted with `_`. For example flag `--home` for application with basename `GAIA` is bound to `GAIA_HOME`. It allows reducing the amount of flags typed for routine operations. For example instead of:
+Each flag is bound to it's respecteve named environment variable. Then name of the environment variable consist of two parts - capital case `basename` followed by flag name of the flag. `-` must be substituted with `_`. For example flag `--home` for application with basename `BITA` is bound to `BITA_HOME`. It allows reducing the amount of flags typed for routine operations. For example instead of:
 
 ```shell
-gaia --home=./ --node=<node address> --chain-id="testchain-1" --keyring-backend=test tx ... --from=<key name>
+bita --home=./ --node=<node address> --chain-id="testchain-1" --keyring-backend=test tx ... --from=<key name>
 ```
 
 this will be more convenient:
 
 ```shell
 # define env variables in .env, .envrc etc
-GAIA_HOME=<path to home>
-GAIA_NODE=<node address>
-GAIA_CHAIN_ID="testchain-1"
-GAIA_KEYRING_BACKEND="test"
+BITA_HOME=<path to home>
+BITA_NODE=<node address>
+BITA_CHAIN_ID="testchain-1"
+BITA_KEYRING_BACKEND="test"
 
 # and later just use
-gaia tx ... --from=<key name>
+bita tx ... --from=<key name>
 ```
 
 ## Configurations
